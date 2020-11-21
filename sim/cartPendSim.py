@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-Cart Pend Simulator Test
+Cart Pendulum Simulation
 
-@author: avidh
+Contains non-linear mathematical model of motion for inverted pendulum
+on cart.
 """
 import math as m
-import time
-import cartPendAnimator as anim
 
 kCartMass = 10
 kPendMass = 2
 kPendLength = 2
 kLocalG = 9.8
-kDt = 1 / 50.0
+kDt = 1 / 60.0
 
 F = 0
+Fmax = 10
 
 x = 0
 xDot = 0
 xDDot = 0
 
-theta = m.radians(30)
+theta = m.radians(1)
 thetaDot = 0
 thetaDDot = 0
 
@@ -32,6 +32,12 @@ def integrate(timestep = kDt):
     
     thetaDot += thetaDDot * timestep
     theta += thetaDot * timestep
+    
+    #Bounds theta between +180 and -180 to simulate a sensor.
+    if(theta > m.pi):
+        theta = theta - 2*m.pi;
+    elif(theta < -m.pi):
+        theta = theta + 2*m.pi;
 
 def calculateXDDot():
     """
@@ -87,17 +93,31 @@ def calculateThetaDDot():
     globals()['thetaDDot'] = thetaDDot
     return thetaDDot
 
-anim.init()
-
-while(not anim.detectedCloseButton()):
-    integrate()
+def updateSim(timestep = kDt):
+    integrate(timestep)
     calculateThetaDDot()
     calculateXDDot()
+
+def setForce(forceNewtons):
+    global F
+    F = min(Fmax, max(-Fmax, forceNewtons))
+
+def getTheta():
+    return theta
     
-    print(f"X: {xDDot}\tTheta: {m.degrees(theta)}")
-    anim.draw(x, theta)
-    time.sleep(kDt * 1)
-anim.close()
+#anim.init()
+
+#while(not anim.detectedCloseButton()):
+ #   integrate()
+  #  F = min(Fmax, max(-Fmax, pidController(theta)))
+   # calculateThetaDDot()
+    #calculateXDDot()
+    
+    
+    #print(f"X: {xDDot}\tTheta: {m.degrees(theta)}")
+    #anim.draw(x, theta)
+    #time.sleep(kDt * 1)
+#anim.close()
     
     
     

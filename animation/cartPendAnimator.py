@@ -5,7 +5,6 @@ Created on Mon Sep 14 13:46:03 2020
 @author: avidh
 """
 import pygame
-import time
 import math
 
 kScreenWidth  = 800
