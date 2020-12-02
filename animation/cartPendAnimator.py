@@ -24,6 +24,7 @@ kDefaultPendLength = 1 * kMeters2Pixels
 kBackgroundColor = (0, 182, 174)
 kCartColor = (255,255,255)
 kPendColor = (255,255,255)
+kTrackColor= (200,200,200)
 
 screen = 0;
 pendLength = 0;
@@ -40,7 +41,7 @@ def draw(cartX, pendulumTheta):
     screen.fill(kBackgroundColor)
     
     #draw the track
-    pygame.draw.rect(screen, (200,200,200), (0, kScreenHeight - kTrackHeight + kCartHeight, kScreenWidth, 10), 0)
+    pygame.draw.rect(screen, kTrackColor, (0, kScreenHeight - kTrackHeight + kCartHeight, kScreenWidth, 10), 0)
     
     #draw the cart
     cartX,cartY = coordsToScreenRel(cartX * kMeters2Pixels, 0)
@@ -50,7 +51,11 @@ def draw(cartX, pendulumTheta):
     pendX = int(cartX - math.sin(pendulumTheta) * pendLength)
     pendY = int(cartY - math.cos(pendulumTheta) * pendLength)
     
+    #draw the rod
+    pygame.draw.line(screen, kTrackColor, (cartX, cartY), (pendX, pendY), 5)
+    
     pygame.draw.circle(screen, kPendColor, (pendX, pendY), kPendulumRadius, 0)
+    
     
     pygame.display.update()
     

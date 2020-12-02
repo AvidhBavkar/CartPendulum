@@ -14,13 +14,13 @@ kLocalG = 9.8
 kDt = 1 / 60.0
 
 F = 0
-Fmax = 10
+Fmax = 100
 
 x = 0
 xDot = 0
 xDDot = 0
 
-theta = m.radians(1)
+theta = m.radians(10)
 thetaDot = 0
 thetaDDot = 0
 
@@ -104,20 +104,4 @@ def setForce(forceNewtons):
 
 def getTheta():
     return theta
-    
-#anim.init()
-
-#while(not anim.detectedCloseButton()):
- #   integrate()
-  #  F = min(Fmax, max(-Fmax, pidController(theta)))
-   # calculateThetaDDot()
-    #calculateXDDot()
-    
-    
-    #print(f"X: {xDDot}\tTheta: {m.degrees(theta)}")
-    #anim.draw(x, theta)
-    #time.sleep(kDt * 1)
-#anim.close()
-    
-    
     
